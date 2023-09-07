@@ -16,12 +16,12 @@ data "aws_ami" "ubuntu" {
   # AWS ID of the Canonical organisation
   owners = ["099720109477"]
 }
-
+ 
 # HTTP Ingress Security Group Module
-module "http_sg_ingress" {
+module "http_sg_ingress_07_09_2023" {
   source = "./modules/securitygroup"
 
-  sg_name        = "http_sg_ingress"
+  sg_name        = "http_sg_ingress_07_09_2023"
   sg_description = "Allow Port 80 from anywhere"
   environment    = var.environment
   type           = "ingress"
@@ -32,10 +32,10 @@ module "http_sg_ingress" {
 }
 
 # Generic Egress Security Group Module
-module "generic_sg_egress" {
+module "generic_sg_egress_07_09_2023" {
   source = "./modules/securitygroup"
 
-  sg_name        = "generic_sg_egress"
+  sg_name        = "generic_sg_egress_07_09_2023"
   sg_description = "Allow server to connect to outbound internet"
   environment    = var.environment
   type           = "egress"
@@ -46,10 +46,10 @@ module "generic_sg_egress" {
 }
 
 # SSH Ingress Security Group Module
-module "ssh_sg_ingress" {
+module "ssh_sg_ingress_07_09_2023" {
   source = "./modules/securitygroup"
 
-  sg_name        = "ssh_sg_ingress"
+  sg_name        = "ssh_sg_ingress_07_09_2023"
   sg_description = "Allow Port 22 from anywhere"
   environment    = var.environment
   type           = "ingress"
@@ -63,9 +63,9 @@ module "ssh_sg_ingress" {
 resource "aws_instance" "apache2_server" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
-  vpc_security_group_ids = [module.http_sg_ingress.sg_id,
-    module.generic_sg_egress.sg_id,
-  module.ssh_sg_ingress.sg_id]
+  vpc_security_group_ids = [module.http_sg_ingress_07_09_2023.sg_id,
+    module.generic_sg_egress_07_09_2023.sg_id,
+  module.ssh_sg_ingress_07_09_2023.sg_id]
   key_name  = var.ssh_key_name
   user_data = file("./scripts/user_data.sh")
   tags = {
@@ -74,7 +74,7 @@ resource "aws_instance" "apache2_server" {
   }
 
   depends_on = [
-    module.generic_sg_egress
+    module.generic_sg_egress_07_09_2023
   ]
 }
 
