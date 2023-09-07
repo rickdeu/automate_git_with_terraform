@@ -1,3 +1,3 @@
-workspaces { name = "prod-1" }
+workspaces { name = "produ" }
 hostname     = "app.terraform.io"
 organization = "fenixinnovation"
