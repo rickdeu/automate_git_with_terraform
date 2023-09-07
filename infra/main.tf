@@ -82,9 +82,9 @@ resource "aws_instance" "apache2_server" {
  resource "aws_instance" "apache2_server_1" {
    ami           = data.aws_ami.ubuntu.id
    instance_type = var.instance_type
-   vpc_security_group_ids = [module.http_sg_ingress.sg_id,
-     module.generic_sg_egress.sg_id,
-   module.ssh_sg_ingress.sg_id]
+   vpc_security_group_ids = [module.http_sg_ingress_07_09_2023.sg_id,
+     module.generic_sg_egress_07_09_2023.sg_id,
+   module.ssh_sg_ingress_07_09_2023.sg_id]
    key_name  = var.ssh_key_name
    user_data = file("./scripts/user_data.sh")
    tags = {
@@ -93,6 +93,6 @@ resource "aws_instance" "apache2_server" {
    }
 
    depends_on = [
-     module.generic_sg_egress
+     module.generic_sg_egress_07_09_2023
    ]
  }
