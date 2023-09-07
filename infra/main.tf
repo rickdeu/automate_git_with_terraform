@@ -91,7 +91,7 @@ resource "aws_instance" "apache2_server" {
      env  = var.environment
      Name = "ec2-${local.name-suffix}"
    }
-
+ 
    depends_on = [
      module.generic_sg_egress_07_09_2023
    ]
